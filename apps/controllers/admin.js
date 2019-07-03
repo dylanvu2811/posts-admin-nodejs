@@ -111,8 +111,49 @@ router.post('/post/new', (req, res) => {
             res.render('admin/post/new', {data: data});
         });
     }
-
-    
-
 });
+
+router.get('/post/edit/:id', (req, res) => {
+    const params = req.params;
+    const id = params.id;
+
+    const data = post_md.getPostById(id);
+    if(data) {
+        data.then((posts) => {
+            const post = posts[0];
+            const data = {
+                post: post,
+                error: false
+            };
+            res.render('admin/post/edit', {data: data});
+        }).catch((err) => {
+            const data = {
+                error: "could not get post by id"
+            };
+            res.render('admin/post/edit', {data: data});
+        });
+    } else {
+        const data = {
+            error: "could not get post by id"
+        };
+        res.render('admin/post/edit', {data: data})
+    }
+});
+
+router.put('/post/edit'), (req, res) => {
+    const params = req.body;
+    data = post_md.updatePost(params);
+    if (!data) {
+        res.json({status_code: 500});
+    } else {
+        data.then((result) => {
+            res.json({status_code: 200});
+        }).catch((err) => {
+            res.json({status_code: 500});
+        })
+    }
+}
+
+
+
 module.exports = router;
