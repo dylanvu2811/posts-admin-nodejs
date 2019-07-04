@@ -5,13 +5,13 @@ function Post(){
                 id: $('.id').val(),
                 title: $('.title').val(),
                 author: $('.author').val(),
-                content: $('content').val()
+                content: $('.content').val()
             };
 
             const base_url = location.protocol + '//' + document.domain + ":" + location.port;
 
             $.ajax({
-                url: '/admin/post/edit/',
+                url: base_url + '/admin/post/edit/',
                 type: 'PUT',
                 data: params,
                 dataType: 'json',

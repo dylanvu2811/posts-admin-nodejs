@@ -140,9 +140,9 @@ router.get('/post/edit/:id', (req, res) => {
     }
 });
 
-router.put('/post/edit'), (req, res) => {
+router.put('/post/edit', (req, res) => {
     const params = req.body;
-    data = post_md.updatePost(params);
+    const data = post_md.updatePost(params);
     if (!data) {
         res.json({status_code: 500});
     } else {
@@ -152,7 +152,7 @@ router.put('/post/edit'), (req, res) => {
             res.json({status_code: 500});
         })
     }
-}
+});
 
 
 
