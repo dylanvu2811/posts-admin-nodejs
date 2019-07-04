@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Duong Blog</title>
+  <title>about Blog</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/static/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
             <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sample Post</a>
+            <a class="nav-link" href="post.html">Sample Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
@@ -53,14 +53,14 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('/static/theme/img/home-bg.jpg')">
+  <header class="masthead" style="background-image: url('img/about-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Clean Blog</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          <div class="page-heading">
+            <h1>About Me</h1>
+            <span class="subheading">This is what I do.</span>
           </div>
         </div>
       </div>
@@ -71,28 +71,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <% if(data && data.posts) {
-          for(item of data.posts){
-          %>
-        <div class="post-preview">
-          <a href="/blog/post/<%= item.id%>">
-            <h2 class="post-title">
-              <%= item.title %>
-            </h2>
-            <h3 class="post-subtitle">
-                <%- item.content %>
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#"><%= item.author %></a>
-            on <%= item.created_at %></p>
-        </div>
-        <hr>
-        <% }}%>
-        <!-- Pager -->
-        <!-- <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div> -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
       </div>
     </div>
   </div>

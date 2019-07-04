@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Duong Blog</title>
+  <title><% if(data && data.post) {%><%= data.post.title %><%} %></title>
 
   <!-- Bootstrap core CSS -->
   <link href="/static/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
             <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sample Post</a>
+            <a class="nav-link" href="post.html">Sample Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
@@ -53,49 +53,35 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('/static/theme/img/home-bg.jpg')">
+  <header class="masthead" style="background-image: url('/static/theme/img/post-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Clean Blog</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          <% if(data && data.post) {%>
+          <div class="post-heading">
+            <h1><%= data.post.title %></h1>
+     
+            <span class="meta">Posted by
+              <a href="#"><%= data.post.author %></a>
+              on <%= data.post.created_at %></span>
           </div>
+          <%} %>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <% if(data && data.posts) {
-          for(item of data.posts){
-          %>
-        <div class="post-preview">
-          <a href="/blog/post/<%= item.id%>">
-            <h2 class="post-title">
-              <%= item.title %>
-            </h2>
-            <h3 class="post-subtitle">
-                <%- item.content %>
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#"><%= item.author %></a>
-            on <%= item.created_at %></p>
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <%- data.post.content %>
         </div>
-        <hr>
-        <% }}%>
-        <!-- Pager -->
-        <!-- <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div> -->
       </div>
     </div>
-  </div>
+  </article>
 
   <hr>
 

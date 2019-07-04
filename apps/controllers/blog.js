@@ -20,4 +20,29 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/post/:id', (req, res) => {
+
+    const data = post_md.getPostById(req.params.id);
+    data.then((posts) => {
+        const post = posts[0]
+        const result = {
+            post: post,
+            error: false
+        };
+        res.render('blog/post', {data: result});
+    }).catch((err) => {
+        const result =  {
+            error: 'could not get posts detail'
+        };
+        res.render('blog/post', {data: result});
+    });
+
+});
+
+router.get('/about', (req, res) => {
+
+    res.render('blog/about');
+
+});
+
 module.exports = router;
