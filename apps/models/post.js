@@ -58,9 +58,25 @@ const updatePost = (params) => {
 }
 
 
+const deletePost = (id) => {
+    if (id) {
+        const defer = q.defer();
+        const query = connec.query('DELETE FROM posts WHERE id = ?', [id],function (error, result, fields) {
+            if (error) {
+                defer.reject(error);
+            }else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
 module.exports = {
     getAllPost: getAllPost,
     addPost: addPost,
     getPostById: getPostById,
-    updatePost: updatePost
+    updatePost: updatePost,
+    deletePost: deletePost
 }
