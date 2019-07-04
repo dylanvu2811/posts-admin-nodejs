@@ -6,16 +6,20 @@ const helper = require('../helpers/helper');
 
 router.get('/', (req, res) => {
 
-    const data = post_md.getAllPost();
-    data.then((posts) => {
-        const data = {
-            posts: posts,
-            error: false
-        };
-        res.render('admin/dashboard', {data: data});
-    }).catch((err) => {
-        res.render('admin/dashboard', {data: {error: "get post data is false"}});
-    });
+    if (req.session.user){
+        const data = post_md.getAllPost();
+        data.then((posts) => {
+            const data = {
+                posts: posts,
+                error: false
+            };
+            res.render('admin/dashboard', {data: data});
+        }).catch((err) => {
+            res.render('admin/dashboard', {data: {error: "get post data is false"}});
+        });
+    }else {
+        res.redirect('/admin/signin');
+    }
 });
 
 router.get('/signup', (req, res) => {
@@ -75,6 +79,7 @@ router.post('/signin', (req, res) => {
                 if(!stt) {
                     res.render("signin", {data: {error:"passs wrong"}});
                 }else {
+                    req.session.user = user;
                     res.redirect("/admin/");
                 }
             });
@@ -86,58 +91,73 @@ router.post('/signin', (req, res) => {
 
 
 router.get('/post/new', (req, res) => {
-    res.render('admin/post/new', {data: {error: false}});
+    if (req.session.user){
+        res.render('admin/post/new', {data: {error: false}});
+    }else {
+        res.redirect('/admin/signin');
+    }
 });
 router.post('/post/new', (req, res) => {
-    const params = req.body;
 
-    if(params.title.trim().length == 0) {
-        const data = {
-            error: "pls enter title"
-        };
-        res.render('admin/post/new', {data: data});
-    } else {
-        const now = new Date();
-        params.created_at = now;
-        params.updated_at = now;
+    if (req.session.user){
+        const params = req.body;
 
-        const data = post_md.addPost(params);
-        data.then((result) => {
-            res.redirect('/admin');
-        }).catch((err) => {
+        if(params.title.trim().length == 0) {
             const data = {
-                error: 'insert false'
+                error: "pls enter title"
             };
             res.render('admin/post/new', {data: data});
-        });
+        } else {
+            const now = new Date();
+            params.created_at = now;
+            params.updated_at = now;
+    
+            const data = post_md.addPost(params);
+            data.then((result) => {
+                res.redirect('/admin');
+            }).catch((err) => {
+                const data = {
+                    error: 'insert false'
+                };
+                res.render('admin/post/new', {data: data});
+            });
+        }
+    }else {
+        res.redirect('/admin/signin');
     }
+
 });
 
 router.get('/post/edit/:id', (req, res) => {
-    const params = req.params;
-    const id = params.id;
-
-    const data = post_md.getPostById(id);
-    if(data) {
-        data.then((posts) => {
-            const post = posts[0];
-            const data = {
-                post: post,
-                error: false
-            };
-            res.render('admin/post/edit', {data: data});
-        }).catch((err) => {
+    if (req.session.user){
+        const params = req.params;
+        const id = params.id;
+    
+        const data = post_md.getPostById(id);
+        if(data) {
+            data.then((posts) => {
+                const post = posts[0];
+                const data = {
+                    post: post,
+                    error: false
+                };
+                res.render('admin/post/edit', {data: data});
+            }).catch((err) => {
+                const data = {
+                    error: "could not get post by id"
+                };
+                res.render('admin/post/edit', {data: data});
+            });
+        } else {
             const data = {
                 error: "could not get post by id"
             };
-            res.render('admin/post/edit', {data: data});
-        });
-    } else {
-        const data = {
-            error: "could not get post by id"
-        };
-        res.render('admin/post/edit', {data: data})
+            res.render('admin/post/edit', {data: data})
+        }
+    }else {
+        res.redirect('/admin/signin');
     }
+
 });
 
 router.put('/post/edit', (req, res) => {
@@ -168,6 +188,30 @@ router.delete('/post/delete', (req, res) => {
     }
 });
 
+router.get('/user', (req, res) => {
+
+
+    if (req.session.user){
+        const data = user_md.getAllUsers();
+
+        if(data) {
+            data.then((users) => {
+                const data = {
+                    users: users,
+                    error: false
+                };
+                res.render('admin/user', {data: data});
+            }).catch((err) => {
+                const data = {
+                    error: "could not get users"
+                };
+                res.render('admin/user', {data: data});
+            });
+        }
+    }else {
+        res.redirect('/admin/signin');
+    }
+});
 
 
 module.exports = router;

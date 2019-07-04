@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%- include layout/head %>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<%- include layout/nav %>
+
+<div class="container">
+    <h2>Basic Table</h2>
+    <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p> 
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>create time</th>
+            <th>update time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            
+            <% if (data && data.users) { %>
+                <% for(item of data.users) { %>
+                    
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td><%= item.email %></td>
+                        <td><%= item.first_name %></td>
+                        <td><%= item.last_name %></td>
+                        <td><%= item.created_at %></td>
+                        <td><%= item.update_at %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        </tr>
+    
+        </tbody>
+    </table>
+</div>
+<!-- Image of location/map -->
+<img src="map.jpg" class="img-responsive" style="width:100%">
+
+<!-- Footer -->
+<footer class="text-center">
+  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a><br><br>
+  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" data-toggle="tooltip" title="Visit w3schools">www.w3schools.com</a></p> 
+</footer>
+
+
+</body>
+</html>

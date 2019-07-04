@@ -33,7 +33,21 @@ const getUserByEmail = (email) => {
     }
 
 }
+
+const getAllUsers = () => {
+    const defer = q.defer();
+        
+    const query = connec.query('SELECT * FROM users', function (error, users, fields) {
+        if (error) {
+            defer.reject(error);
+        }else {
+            defer.resolve(users);
+        }
+    });
+    return defer.promise;
+}
 module.exports = {
     addUser: addUser,
-    getUserByEmail: getUserByEmail
+    getUserByEmail: getUserByEmail,
+    getAllUsers: getAllUsers
 }
